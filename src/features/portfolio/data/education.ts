@@ -4,7 +4,7 @@ export const EDUCATION: Education[] = [
   {
     id: "grd",
     school: "Dr. G.R. Damodaran College of Science",
-    degree: "B.Sc in Computer Science",
+    degree: "B.Sc",
     fieldOfStudy: "Computer Science",
     period: {
       start: "2025",
@@ -20,16 +20,5 @@ export const EDUCATION: Education[] = [
       "Systems Design",
       "Software Engineering",
     ],
-  },
-  {
-    id: "svv",
-    school: "Shree Vishnu Vidyalayaa Matric Higher Secondary School",
-    degree: "Higher Secondary Education",
-    period: {
-      start: "2024",
-      end: "2025",
-    },
-    description: "",
-    skills: [],
   },
 ]
