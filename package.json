@@ -142,7 +142,8 @@
     "typescript": "5.8.3",
     "unist-builder": "3.0.0",
     "unist-util-visit": "^5.0.0",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.8",
+    "wrangler": "^4.123.0"
   },
   "resolutions": {
     "@types/react": "19.2.17",

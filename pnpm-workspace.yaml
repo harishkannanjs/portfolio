@@ -1,9 +1,17 @@
+onlyBuiltDependencies:
+  - "@parcel/watcher"
+  - esbuild
+  - sharp
+  - workerd
 allowBuilds:
+  "@parcel/watcher": true
   core-js: false
+  esbuild: true
   msw: false
   protobufjs: false
-  puppeteer: false
-  sharp: false
+  puppeteer: true
+  sharp: true
+  workerd: true
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - shadcn
