@@ -19,6 +19,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
         storageKey="theme"
         defaultTheme="system"
         attribute="class"
+        scriptProps={{
+          suppressHydrationWarning: true,
+        }}
       >
         <ProgressProvider
           color="var(--foreground)"
