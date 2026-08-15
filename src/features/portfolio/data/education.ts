@@ -4,7 +4,7 @@ export const EDUCATION: Education[] = [
   {
     id: "grd",
     school: "Dr. G.R. Damodaran College of Science",
-    link: "https://maps.app.goo.gl/K5uAeGZfS9CjbhVm6",
+    link: "https://www.grd.org/grdcs/",
     degree: "B.Sc",
     fieldOfStudy: "Computer Science",
     period: {
