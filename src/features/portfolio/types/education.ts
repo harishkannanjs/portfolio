@@ -1,6 +1,7 @@
 export type Education = {
   id: string
   school: string
+  link?: string
   degree?: string
   fieldOfStudy?: string
   period: {

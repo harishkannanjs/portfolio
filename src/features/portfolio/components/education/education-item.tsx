@@ -36,6 +36,7 @@ export function EducationItem({ item }: { item: Education }) {
             "outline-none focus-visible:before:inset-ring-2 focus-visible:before:inset-ring-ring/50",
             "data-disabled:before:content-none"
           )}
+          render={<div role="button" tabIndex={0} />}
         >
           <div className="relative z-1 mb-1 flex items-start gap-3 text-base">
             <div
@@ -49,7 +50,21 @@ export function EducationItem({ item }: { item: Education }) {
               <GraduationCapIcon />
             </div>
 
-            <h3 className="flex-1 font-medium text-balance">{item.school}</h3>
+            <h3 className="flex-1 font-medium text-balance">
+              {item.link ? (
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-foreground hover:underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {item.school}
+                </a>
+              ) : (
+                item.school
+              )}
+            </h3>
 
             <div className="shrink-0 text-muted-foreground group-data-disabled:hidden [&_svg]:h-lh [&_svg]:w-4">
               <CollapsibleChevronsUpDownIcon />
