@@ -24,8 +24,11 @@ export type ExperiencePosition = {
 export type Experience = {
   id: string
   companyName: string
-  /** URL to the company logo (absolute URL or path under /public). */
-  companyLogo?: string
+  /**
+   * Company logo. Use a single path, or `{ light, dark }` so the mark
+   * stays visible in both themes.
+   */
+  companyLogo?: string | { light: string; dark: string }
   /** UI icon to represent the company; used if `companyLogo` is not provided. */
   companyIcon?: React.ReactElement
   /** URL to the company's website. */

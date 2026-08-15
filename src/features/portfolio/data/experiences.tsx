@@ -1,9 +1,4 @@
-import {
-  BriefcaseBusinessIcon,
-  CodeXmlIcon,
-  DraftingCompassIcon,
-  LightbulbIcon,
-} from "lucide-react"
+import { BriefcaseBusinessIcon, CodeXmlIcon } from "lucide-react"
 
 import type { Experience } from "@/features/portfolio/types/experiences"
 
@@ -31,13 +26,16 @@ export const EXPERIENCES: Experience[] = [
     ],
   },
   {
-    id: "self-employed",
-    companyName: "Self-Employed",
-    companyIcon: <LightbulbIcon strokeWidth={1.8} />,
+    id: "upwork",
+    companyName: "Upwork",
+    companyLogo: {
+      light: "/images/companies/upwork-light.png",
+      dark: "/images/companies/upwork-dark.png",
+    },
     positions: [
       {
         id: "1",
-        title: "Building things on the internet",
+        title: "Building things on the internet as Freelancer",
         employmentPeriod: {
           start: "01.2021",
         },
