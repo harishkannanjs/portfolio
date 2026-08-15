@@ -1,3 +1,5 @@
+"use client"
+
 import { GraduationCapIcon, InfinityIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
