@@ -36,6 +36,7 @@
     "capture:sync": "bun run ./src/scripts/capture-sync.mts",
     "icons:dev": "bun run ./src/scripts/build-icons.ts --watch",
     "icons:build": "bun run ./src/scripts/build-icons.ts",
+    "pages:build": "npx @cloudflare/next-on-pages",
     "generate-libphonenumber-metadata": "libphonenumber-metadata-generator ./src/assets/libphonenumber.metadata.json --countries VN --extended",
     "upgrade:next": "npx @next/codemod@latest upgrade latest",
     "upgrade:tailwind": "npx @tailwindcss/upgrade@latest",
@@ -143,7 +144,8 @@
     "unist-builder": "3.0.0",
     "unist-util-visit": "^5.0.0",
     "vitest": "^4.1.8",
-    "wrangler": "^4.123.0"
+    "wrangler": "^4.123.0",
+    "@cloudflare/next-on-pages": "^1.13.7"
   },
   "resolutions": {
     "@types/react": "19.2.17",
