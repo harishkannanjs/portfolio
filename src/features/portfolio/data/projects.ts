@@ -5,7 +5,8 @@ export const PROJECTS: Project[] = [
     id: "trowser",
     title: "Trowser",
     period: {
-      start: "",
+      start: "09.2025",
+      end: "",
     },
     link: "https://github.com/harishkannanjs/trowser",
     skills: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
