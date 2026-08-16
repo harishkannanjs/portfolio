@@ -79,19 +79,6 @@ const nextConfig: NextConfig = {
           },
         }
       : undefined,
-  async headers() {
-    return [
-      {
-        source: "/doc.mdx/:path*",
-        headers: [
-          {
-            key: "Content-Type",
-            value: "text/markdown; charset=utf-8",
-          },
-        ],
-      },
-    ]
-  },
   async redirects() {
     return [
       {
