@@ -1,0 +1,14 @@
+# Cloudflare Pages Redirects
+/blog/writing-effect-inspired-by-apple /components/apple-hello-effect 301
+/components/writing-effect-inspired-by-apple /components/apple-hello-effect 301
+/blog/work-experience /components/work-experience-component 301
+/components/work-experience /components/work-experience-component 301
+/blog/theme-switcher-component /components/theme-switcher 301
+/components/theme-switcher-component /components/theme-switcher 301
+/blocks/content /blocks/marketing 301
+/blocks/content/blog-01 /blocks/marketing/blog-01 301
+/blocks/content/blog-02 /blocks/marketing/blog-02 301
+/blocks/content/experience-01 /blocks/marketing/experience-01 301
+/blocks/content/team-01 /blocks/marketing/team-01 301
+/rss /blog/rss 301
+/registry/rss /components/rss 301

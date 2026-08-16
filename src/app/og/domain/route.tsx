@@ -12,6 +12,8 @@ const geistSemiBold = readFileSync(
   join(process.cwd(), "src/assets/fonts/Geist-SemiBold.ttf")
 )
 
+export const dynamic = "force-static"
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
 
