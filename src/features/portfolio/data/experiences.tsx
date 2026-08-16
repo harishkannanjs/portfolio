@@ -35,13 +35,13 @@ export const EXPERIENCES: Experience[] = [
     positions: [
       {
         id: "1",
-        title: "Building things on the internet as Freelancer",
+        title: "Freelancer",
         employmentPeriod: {
           start: "01.2021",
         },
         employmentType: "Freelance",
         icon: <CodeXmlIcon />,
-        description: `Coding every day. Personal projects, tools I needed that didn't exist, experiments that go nowhere and ones that stick. This is where the real learning happens.`,
+        description: `Client work on the side. Real briefs, real deadlines, real feedback. The kind of pressure that makes you a better developer faster than any side project will.`,
         skills: [],
         isExpanded: true,
       },
