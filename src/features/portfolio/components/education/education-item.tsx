@@ -39,6 +39,7 @@ export function EducationItem({ item }: { item: Education }) {
             "data-disabled:before:content-none"
           )}
           render={<div role="button" tabIndex={0} />}
+          nativeButton={false}
         >
           <div className="relative z-1 mb-1 flex items-start gap-3 text-base">
             <div

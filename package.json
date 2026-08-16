@@ -23,6 +23,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "pages:build": "npx @cloudflare/next-on-pages",
     "start": "next start",
     "preview": "next build && next start",
     "test": "vitest",
@@ -142,7 +143,8 @@
     "typescript": "5.8.3",
     "unist-builder": "3.0.0",
     "unist-util-visit": "^5.0.0",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.8",
+    "@cloudflare/next-on-pages": "^1.13.7"
   },
   "resolutions": {
     "@types/react": "19.2.17",
