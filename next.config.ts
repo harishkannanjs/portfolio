@@ -51,14 +51,12 @@ const legacyBlogComponentRedirects = LEGACY_BLOG_COMPONENT_SLUGS.map(
 )
 
 const nextConfig: NextConfig = {
-  output: "export",
   reactStrictMode: true,
   typedRoutes: true,
   transpilePackages: ["next-mdx-remote"],
   allowedDevOrigins: ["ncdai.localhost", "ncdai.local"],
   devIndicators: false,
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -81,6 +79,19 @@ const nextConfig: NextConfig = {
           },
         }
       : undefined,
+  async headers() {
+    return [
+      {
+        source: "/doc.mdx/:path*",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "text/markdown; charset=utf-8",
+          },
+        ],
+      },
+    ]
+  },
   async redirects() {
     return [
       {
