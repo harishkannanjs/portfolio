@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server"
 import { decodeEmail } from "@/utils/string"
-import sharp from "sharp"
 import VCard from "vcard-creator"
 
 import { USER } from "@/features/portfolio/data/user"
@@ -55,31 +54,14 @@ async function getVCardPhoto(url: string) {
       return null
     }
 
-    const jpegBuffer = await convertImageToJpeg(buffer)
-    const image = jpegBuffer.toString("base64")
+    const mime = contentType.replace("image/", "").toLowerCase()
+    const image = buffer.toString("base64")
 
     return {
       image,
-      mime: "jpeg",
+      mime: mime === "jpg" ? "jpeg" : mime || "jpeg",
     }
   } catch {
     return null
-  }
-}
-
-async function convertImageToJpeg(imageBuffer: Buffer): Promise<Buffer> {
-  try {
-    const jpegBuffer = await sharp(imageBuffer)
-      .jpeg({
-        quality: 90,
-        progressive: true,
-        mozjpeg: true,
-      })
-      .toBuffer()
-
-    return jpegBuffer
-  } catch (error) {
-    console.error("Error converting image to JPEG:", error)
-    throw error
   }
 }
