@@ -23,7 +23,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:build": "opennextjs-cloudflare build",
+    "cf:build": "opennextjs-cloudflare build",
+    "deploy": "opennextjs-cloudflare build && wrangler deploy",
     "start": "next start",
     "preview": "next build && next start",
     "test": "vitest",
@@ -144,7 +146,8 @@
     "unist-builder": "3.0.0",
     "unist-util-visit": "^5.0.0",
     "vitest": "^4.1.8",
-    "@cloudflare/next-on-pages": "^1.13.7"
+    "@opennextjs/cloudflare": "^1.1.0",
+    "wrangler": "^4.0.0"
   },
   "resolutions": {
     "@types/react": "19.2.17",
