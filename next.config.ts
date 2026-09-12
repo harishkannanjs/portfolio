@@ -1,6 +1,7 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
+  output: "export",
   reactStrictMode: true,
   typedRoutes: true,
   transpilePackages: ["next-mdx-remote"],
@@ -25,14 +26,6 @@ const nextConfig: NextConfig = {
           },
         }
       : undefined,
-  async rewrites() {
-    return [
-      {
-        source: "/rss",
-        destination: "/blog/rss",
-      },
-    ]
-  },
 }
 
 export default nextConfig
