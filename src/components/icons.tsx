@@ -57,18 +57,6 @@ export function ReactIcon(props: IconProps) {
     </svg>
   )
 }
-
-export function PnpmIcon(props: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden {...props}>
-      <path
-        d="M0 0v7.5h7.5V0zm8.25 0v7.5h7.498V0zm8.25 0v7.5H24V0zM8.25 8.25v7.5h7.498v-7.5zm8.25 0v7.5H24v-7.5zM0 16.5V24h7.5v-7.5zm8.25 0V24h7.498v-7.5zm8.25 0V24H24v-7.5z"
-        fill="currentColor"
-      />
-    </svg>
-  )
-}
-
 export function YarnIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden {...props}>
@@ -687,8 +675,6 @@ export function getIconForLanguageExtension(language: string) {
 
 export function getIconForPackageManager(manager: string) {
   switch (manager) {
-    case "pnpm":
-      return <PnpmIcon />
     case "yarn":
       return <YarnIcon />
     case "npm":

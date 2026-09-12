@@ -23,7 +23,6 @@ export interface UnistTree extends Node {
 }
 
 export interface NpmCommands {
-  __pnpm__?: string
   __yarn__?: string
   __npm__?: string
   __bun__?: string

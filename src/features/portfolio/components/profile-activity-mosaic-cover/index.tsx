@@ -3,6 +3,7 @@ import {
   eachYearOfInterval,
   format,
   getYear,
+  parseISO,
   startOfYear,
   subDays,
 } from "date-fns"
@@ -16,7 +17,14 @@ export async function ProfileActivityMosaicCover() {
   const rowCount = 10
   const columnCount = 48
   const cellCount = rowCount * columnCount
-  const contributions = await getGitHubContributions(GITHUB_USERNAME, cellCount)
+
+  let contributions: Activity[] = []
+  try {
+    contributions = await getGitHubContributions(GITHUB_USERNAME, cellCount)
+  } catch (error) {
+    console.error("Error loading GitHub contributions:", error)
+    contributions = buildContributionGrid([], cellCount)
+  }
 
   return (
     <ActivityMosaicCover
@@ -48,16 +56,45 @@ function buildContributionGrid(
   activities: Activity[],
   cellCount: number
 ): Activity[] {
+  const today = new Date()
+  const todayStr = format(today, "yyyy-MM-dd")
+
+  if (!activities || activities.length === 0) {
+    return Array.from({ length: cellCount }, (_, i) => ({
+      date: format(subDays(today, i), "yyyy-MM-dd"),
+      count: 0,
+      level: 0,
+    }))
+  }
+
   const contributionsSortedByDate = [...activities].sort((a, b) =>
     b.date.localeCompare(a.date)
   )
 
-  const today = format(new Date(), "yyyy-MM-dd")
-  const todayIndex = contributionsSortedByDate.findIndex(
-    (c) => c.date === today
+  const foundIndex = contributionsSortedByDate.findIndex(
+    (c) => c.date === todayStr
+  )
+  const todayIndex = foundIndex !== -1 ? foundIndex : 0
+
+  const sliced = contributionsSortedByDate.slice(
+    todayIndex,
+    todayIndex + cellCount
   )
 
-  return contributionsSortedByDate.slice(todayIndex, todayIndex + cellCount)
+  if (sliced.length < cellCount) {
+    const lastDate =
+      sliced.length > 0 ? parseISO(sliced[sliced.length - 1].date) : today
+    const remaining = cellCount - sliced.length
+    for (let i = 1; i <= remaining; i++) {
+      sliced.push({
+        date: format(subDays(lastDate, i), "yyyy-MM-dd"),
+        count: 0,
+        level: 0,
+      })
+    }
+  }
+
+  return sliced
 }
 
 type GitHubContributionsResponse = {
@@ -66,26 +103,21 @@ type GitHubContributionsResponse = {
 
 const getGitHubContributions = unstable_cache(
   async (username: string, cellCount: number) => {
-    try {
-      const years = getYearRange(cellCount)
-      const yearQueries = years.map((year) => `y=${year}`).join("&")
+    const years = getYearRange(cellCount)
+    const yearQueries = years.map((year) => `y=${year}`).join("&")
 
-      const res = await fetch(
-        `${process.env.GITHUB_CONTRIBUTIONS_API_URL || "https://github-contributions-api.jogruber.de"}/v4/${username}?${yearQueries}`,
-        { signal: AbortSignal.timeout(5000) }
-      )
+    const res = await fetch(
+      `${process.env.GITHUB_CONTRIBUTIONS_API_URL || "https://github-contributions-api.jogruber.de"}/v4/${username}?${yearQueries}`,
+      { signal: AbortSignal.timeout(15000) }
+    )
 
-      if (!res.ok) {
-        return buildContributionGrid([], cellCount)
-      }
-
-      const { contributions } =
-        (await res.json()) as GitHubContributionsResponse
-
-      return buildContributionGrid(contributions ?? [], cellCount)
-    } catch {
-      return buildContributionGrid([], cellCount)
+    if (!res.ok) {
+      throw new Error(`GitHub contributions API returned status ${res.status}`)
     }
+
+    const { contributions } = (await res.json()) as GitHubContributionsResponse
+
+    return buildContributionGrid(contributions ?? [], cellCount)
   },
   ["github-contributions", "activity-mosaic"],
   { revalidate: 7 * 24 * 60 * 60 } // Cache for 7 days

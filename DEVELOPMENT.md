@@ -7,7 +7,7 @@ This guide provides instructions on how to set up and run the project locally.
 Ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (Latest LTS version recommended)
-- [pnpm](https://pnpm.io/)
+- [Bun](https://bun.sh/)
 - [Git](https://git-scm.com/)
 
 ## Setup
@@ -30,7 +30,7 @@ npm install -g portless
 ### 3. Install dependencies
 
 ```bash
-pnpm i
+bun install
 ```
 
 ### 4. Configure Environment Variables
@@ -46,7 +46,7 @@ Then, update the necessary environment variables inside `.env.local`.
 ### 5. Run the development server
 
 ```bash
-pnpm dev
+bun dev
 ```
 
 The application should now be available at https://harishkannanjs.localhost
@@ -54,13 +54,13 @@ The application should now be available at https://harishkannanjs.localhost
 ## Building for Production
 
 ```bash
-pnpm build
+bun run build
 ```
 
 After building, start the application with:
 
 ```bash
-NODE_ENV=production pnpm start
+NODE_ENV=production bun start
 ```
 
 ## Before pushing
@@ -68,9 +68,9 @@ NODE_ENV=production pnpm start
 CI runs these on every push and PR. Run them locally first:
 
 ```bash
-pnpm lint
-pnpm format:check
-pnpm build
-pnpm check-types
+bun run lint
+bun run format:check
+bun run build
+bun run check-types
 ```
 

@@ -2,7 +2,7 @@
 
 Next.js 16 (App Router) portfolio website.
 
-**Stack**: TypeScript, React 19, Tailwind CSS v4, shadcn/ui, MDX, Vitest, pnpm (Bun for scripts), Vercel
+**Stack**: TypeScript, React 19, Tailwind CSS v4, shadcn/ui, MDX, Vitest, Bun, Vercel
 
 ## Project structure
 
@@ -31,14 +31,14 @@ Built on shadcn/ui. Registry types and their definition files:
 | `registry:lib`       | `src/registry/lib/_registry.ts`        |
 | `registry:style`     | `src/registry/styles/_registry.ts`     |
 
-**NEVER EDIT** auto-generated outputs of `pnpm registry:build`: `registry.json`, `src/registry/__index__.tsx`, `src/registry/transformed/`, `public/r/*.json`
+**NEVER EDIT** auto-generated outputs of `bun run registry:build`: `registry.json`, `src/registry/__index__.tsx`, `src/registry/transformed/`, `public/r/*.json`
 
 ### Adding a new component
 
 1. Create component in `src/registry/components/[name]/`
 2. Register in the appropriate `_registry.ts` file
 3. Create example in `src/registry/examples/`
-4. Run `pnpm registry:build`
+4. Run `bun run registry:build`
 5. Add docs MDX in `src/features/doc/content/components/` (category is derived from the folder)
 
 ## Content system
@@ -61,15 +61,12 @@ All content lives in `src/features/doc/content/` as MDX files, split into `blog/
 ## Commands
 
 ```bash
-pnpm dev                # Dev server
-pnpm build              # Production build (runs registry:build first)
-pnpm test               # Vitest (watch)
-pnpm test:run           # Vitest (single run)
-pnpm lint               # ESLint
-pnpm lint:fix           # ESLint with --fix
-pnpm format:write       # Prettier
-pnpm check-types        # Type checking (tsc --noEmit)
-pnpm registry:build     # Build shadcn registry (Bun script + shadcn build)
-pnpm registry:validate  # Validate generated registry.json
-pnpm icons:build        # Build registry icons
+bun dev                 # Dev server
+bun run build           # Production build
+bun test                # Vitest (watch)
+bun run test:run        # Vitest (single run)
+bun run lint            # ESLint
+bun run lint:fix        # ESLint with --fix
+bun run format:write    # Prettier
+bun run check-types     # Type checking (tsc --noEmit)
 ```

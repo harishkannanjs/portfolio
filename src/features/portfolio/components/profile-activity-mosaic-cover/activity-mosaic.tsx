@@ -252,16 +252,11 @@ export const ActivityMosaicCell = ({
   ...props
 }: ActivityMosaicCellProps) => {
   const { cellSize, cellMargin, cellRadius, maxLevel } = useActivityMosaic()
-
-  if (activity.level < 0 || activity.level > maxLevel) {
-    throw new RangeError(
-      `Provided activity level ${activity.level} for ${activity.date} is out of range. It must be between 0 and ${maxLevel}.`
-    )
-  }
+  const level = Math.min(maxLevel, Math.max(0, activity.level ?? 0))
 
   return (
     <rect
-      data-level={activity.level}
+      data-level={level}
       className={cn("activity-mosaic-cell", className)}
       width={cellSize}
       height={cellSize}

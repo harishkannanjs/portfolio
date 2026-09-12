@@ -33,8 +33,8 @@ Please refer to the [Development Guide](./DEVELOPMENT.md) for local setup and co
 ```bash
 git clone https://github.com/harishkannanjs/portfolio.git
 cd portfolio
-pnpm install
-pnpm dev
+bun install
+bun dev
 ```
 
 The application runs locally at `https://harishkannanjs.localhost` or `http://localhost:3000`.

@@ -1,11 +1,11 @@
 import { useAtom } from "jotai"
 import { atomWithStorage } from "jotai/utils"
 
-export type PackageManager = "pnpm" | "yarn" | "npm" | "bun"
+export type PackageManager = "bun" | "yarn" | "npm"
 
 const packageManagerAtom = atomWithStorage<PackageManager>(
   "packageManager",
-  "pnpm"
+  "bun"
 )
 
 export function usePackageManager() {

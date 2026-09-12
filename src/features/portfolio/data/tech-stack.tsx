@@ -2,7 +2,6 @@ import {
   ClaudeIcon,
   CssIcon,
   CursorIcon,
-  GitHubIcon,
   JsIcon,
   OpenAIIcon,
   ReactIcon,
