@@ -14,11 +14,15 @@ function parseFrontmatter(fileContent: string) {
   }
 }
 
-function getMDXFiles(dir: string) {
-  if (!fs.existsSync(dir)) {
+function getMDXFiles(dir: string): string[] {
+  try {
+    if (!fs.existsSync(dir)) {
+      return []
+    }
+    return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx")
+  } catch {
     return []
   }
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx")
 }
 
 function readMDXFile(filePath: string) {
@@ -33,45 +37,67 @@ function readMDXFile(filePath: string) {
  * file location rather than declared in frontmatter. Files placed directly in
  * `dir` (e.g. shared `props.ts`) are ignored — only category folders are read.
  */
-function getMDXData(dir: string) {
-  if (!fs.existsSync(dir)) {
+function getMDXData(dir: string): Doc[] {
+  try {
+    if (!fs.existsSync(dir)) {
+      return []
+    }
+
+    const categoryDirs = fs
+      .readdirSync(dir, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+
+    return categoryDirs.flatMap((categoryDir) => {
+      const category = categoryDir.name
+      const categoryPath = path.join(dir, category)
+
+      if (!fs.existsSync(categoryPath)) {
+        return []
+      }
+
+      return getMDXFiles(categoryPath).flatMap((file) => {
+        try {
+          const { metadata, content } = readMDXFile(
+            path.join(categoryPath, file)
+          )
+          const slug = path.basename(file, path.extname(file))
+
+          return [
+            {
+              metadata: { ...metadata, category },
+              slug,
+              content,
+            },
+          ]
+        } catch {
+          return []
+        }
+      })
+    })
+  } catch {
     return []
   }
-
-  const categoryDirs = fs
-    .readdirSync(dir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-
-  return categoryDirs.flatMap((categoryDir) => {
-    const category = categoryDir.name
-    const categoryPath = path.join(dir, category)
-
-    return getMDXFiles(categoryPath).map<Doc>((file) => {
-      const { metadata, content } = readMDXFile(path.join(categoryPath, file))
-
-      const slug = path.basename(file, path.extname(file))
-
-      return {
-        metadata: { ...metadata, category },
-        slug,
-        content,
-      }
-    })
-  })
 }
 
-export const getAllDocs = cache(() => {
-  return getMDXData(path.join(process.cwd(), "src/features/doc/content")).sort(
-    (a, b) => {
-      if (a.metadata.pinned && !b.metadata.pinned) return -1
-      if (!a.metadata.pinned && b.metadata.pinned) return 1
+export const getAllDocs = cache((): Doc[] => {
+  try {
+    const dir = path.join(process.cwd(), "src/features/doc/content")
+    if (!fs.existsSync(dir)) {
+      return []
+    }
+
+    return getMDXData(dir).sort((a, b) => {
+      if (a.metadata?.pinned && !b.metadata?.pinned) return -1
+      if (!a.metadata?.pinned && b.metadata?.pinned) return 1
 
       return (
-        new Date(b.metadata.createdAt).getTime() -
-        new Date(a.metadata.createdAt).getTime()
+        new Date(b.metadata?.createdAt ?? 0).getTime() -
+        new Date(a.metadata?.createdAt ?? 0).getTime()
       )
-    }
-  )
+    })
+  } catch {
+    return []
+  }
 })
 
 export function getDocBySlug(slug: string) {
