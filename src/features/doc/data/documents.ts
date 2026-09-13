@@ -15,6 +15,9 @@ function parseFrontmatter(fileContent: string) {
 }
 
 function getMDXFiles(dir: string) {
+  if (!fs.existsSync(dir)) {
+    return []
+  }
   return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx")
 }
 
@@ -31,6 +34,10 @@ function readMDXFile(filePath: string) {
  * `dir` (e.g. shared `props.ts`) are ignored — only category folders are read.
  */
 function getMDXData(dir: string) {
+  if (!fs.existsSync(dir)) {
+    return []
+  }
+
   const categoryDirs = fs
     .readdirSync(dir, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
